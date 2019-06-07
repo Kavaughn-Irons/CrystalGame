@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en-us" style="margin: 0; padding: 0;">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Crystal Game</title>
+
+    <!-- Our CSS style sheet -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  
+
+  </head>
+
+  <body>
+
+      <div class="no-gutter">
+          <div class="row no-gutter">
+              <div class="col-xl-12 bg-primary" style="height: 80px;"><h1 style="text-align: center;color: white;">Crystal Game</h1></div>
+              <div class="col-xl-12 bg-secondary" style="height: 500px;">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-xl-4" style="height: 400px; background-color: white; margin-top: 30px;"><p> You will be given a random number at the stat of the game.<br> There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score.<br>You win the game by matching your totoal score to the random number. You lose the game if your total score goes above the random number.<br>The value of each crystal is hidden until you click on it.<br>Each time the game starts the game will change the values of the cystals.</p></div>
+                          <div class="col-xl-3" style="height: 100px; margin-top: 160px;">
+                                <div style="height: 200px; width: 200px; background-color: white; margin-bottom: 20px">
+                                    <a class="randomNumber">Random Number: 0</a>
+                                    <br>
+                                    <a class="score">Your Score: 0</a>
+                                    <br>
+                                    <a class="wins">Wins: 0</a>
+                                    <br>
+                                    <a class="losses">Losses: 0</a>
+                              
+                              </div>
+                                <img class="blue" src="04-jquery_Homework_Images_blue.png" style="height: 50px;">
+                                <img class="green" src="04-jquery_Homework_Images_green.png" style="height: 50px">
+                                <img class="red" src="04-jquery_Homework_Images_red.png" style="height: 50px">
+                                <img class="yellow" src="04-jquery_Homework_Images_yellow.png" style="height: 50px">
+                          </div>
+                          
+                          
+                          
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script type="text/javascript" >
+    
+    var randomNumber = Math.floor(Math.random() * (100 - 30)) + 30
+    var score = 0
+    var wins = 0
+    var losses = 0
+    var First = 0
+    var Second = 0
+    var Third = 0
+    var Four = 0
+    
+    function makeRandomNumbers(){
+    while(First  + Second*2 + Third  + Four  !== randomNumber || First === 1 || Second === 1 || Third === 1 || Four === 1 || First === 0 || Second === 0 || Third === 0 || Four === 0){
+        
+        First = Math.floor(Math.random() * 100)
+        Second = Math.floor(Math.random() * 100)
+        Third = Math.floor(Math.random() * 100)
+        Four = Math.floor(Math.random() * 100)
+        
+    } 
+    }
+
+    function win(){
+    if(score === randomNumber){
+     wins++
+     randomNumber = Math.floor(Math.random() * (100 - 30)) + 30
+     score = 0
+     First = 0
+     Second = 0
+     Third = 0
+     Four = 0
+     makeRandomNumbers()
+    $(".score").text("Your Score: " + score)
+    $(".randomNumber").text("Random Number: " + randomNumber)
+    $(".wins").text("wins: " + wins)    
+    }
+    } 
+        
+    function lose(){
+    if(score > randomNumber){
+     losses++
+     randomNumber = Math.floor(Math.random() * (100 - 30)) + 30
+     score = 0
+     First = 0
+     Second = 0
+     Third = 0
+     Four = 0
+     makeRandomNumbers()
+    $(".score").text("Your Score: " + score)
+    $(".randomNumber").text("Random Number: " + randomNumber)
+    $(".losses").text("losses: " + losses)    
+    }
+    }        
+    
+    $(".randomNumber").text("Random Number: " + randomNumber)
+    
+    makeRandomNumbers()
+    
+    $(".blue").click(function(){
+    score = score + First
+    $(".score").text("Your Score: " + score)
+    win()
+    lose()    
+    });
+    
+    $(".red").click(function(){
+    score = score + Third
+    $(".score").text("Your Score: " + score)
+    win()
+    lose()    
+    });
+
+    $(".green").click(function(){
+    score = score + Second
+    $(".score").text("Your Score: " + score)
+    win()
+    lose()
+    });
+        
+    $(".yellow").click(function(){
+    score = score + Four
+    $(".score").text("Your Score: " + score)
+    win()
+    lose()    
+    });    
+    
+        
+        console.log("First is " + First + " Second is " + Second + " Third is " + Third + " Four is " + Four + " random number is " + randomNumber);
+    </script>
+
+  </body>
+
+</html>
+
